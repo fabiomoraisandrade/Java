@@ -5,3 +5,6 @@
 
 # Ignorar arquivos compilados
 bin/
+
+# Ignorar dependencias externas
+libs/
