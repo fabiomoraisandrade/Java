@@ -23,26 +23,29 @@ public class AlterarNomePessoa {
 		
 		Pessoa pessoaBanco = null;
 		
-		while(resultadoConsulta.next()) {
+		if(resultadoConsulta.next()) {
 			int codigo = resultadoConsulta.getInt("codigo");
 			String nome = resultadoConsulta.getString("nome");
 			pessoaBanco = new Pessoa(codigo, nome);
-		}
-		
-		System.out.println("A pessoa selecionada e: " + pessoaBanco.getNome() + " com codigo: " + pessoaBanco.getCodigo());
-		
-		System.out.println("Informe qual o nome para ser atualizado");
-		String novoNome = entrada.nextLine();
-		
-		String sqlUpdate = "UPDATE pessoas SET nome = ? WHERE codigo = ?";
-		PreparedStatement newSmtm = conexao.prepareStatement(sqlUpdate);
-		newSmtm.setString(1, novoNome);
-		newSmtm.setInt(2, pessoaBanco.getCodigo());
-		System.out.println(newSmtm);
-		
-		newSmtm.execute();
-		System.out.println("Pessoa atualizada com sucesso");
-		
+			
+			System.out.println("A pessoa selecionada e: " + pessoaBanco.getNome() + " com codigo: " + pessoaBanco.getCodigo());
+			
+			System.out.println("Informe qual o nome para ser atualizado");
+			String novoNome = entrada.nextLine();
+			
+			stmt.close();
+			
+			String sqlUpdate = "UPDATE pessoas SET nome = ? WHERE codigo = ?";
+			PreparedStatement newSmtm = conexao.prepareStatement(sqlUpdate);
+			newSmtm.setString(1, novoNome);
+			newSmtm.setInt(2, pessoaBanco.getCodigo());
+			System.out.println(newSmtm);
+			
+			newSmtm.execute();
+			System.out.println("Pessoa atualizada com sucesso");
+		} else {
+			System.out.println("Nenhum nome igual a " + nomePessoa + " foi encontrado");
+		}		
 		
 		conexao.close();
 		entrada.close();
