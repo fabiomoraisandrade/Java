@@ -8,3 +8,6 @@ bin/
 
 # Ignorar dependencias externas
 libs/
+
+#Ignorar informações de conexão com o banco
+conexao.properties
